@@ -31,6 +31,7 @@ print(R_referentiel.columns)
 print(R_referentiel.iloc[1])
 print(R_typo_produit.columns)
 print(R_typo_produit.iloc[1])
-
-df_matrice_travail= R_tickets_2016.merge(R_magasin,on='CODE_BOUTIQUE').merge(R_referentiel,on='EAN').merge(R_typo_produit,on='MODELE')
+R_tickets_2016['date_achat']=[(datetime.datetime.strptime(i,'%d/%m/%Y')) for i in R_tickets_2016['DATE_ACHAT']]
+R_tickets_2016_2=R_tickets_2016.query('date_achat>datetime.datetime.strptime("2014-09-01","%Y-%m-%d")')
+df_matrice_travail= R_tickets_2016_2.merge(R_magasin,on='CODE_BOUTIQUE').merge(R_referentiel,on='EAN').merge(R_typo_produit,on='MODELE')
 print(df_matrice_travail)
