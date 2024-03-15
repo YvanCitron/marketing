@@ -14,3 +14,8 @@ print(R_magasin_2016)
 print(R_referentiel)
 print(R_tickets_2016)
 print(R_typo_produit)
+
+
+DF_indiv = pd.DataFrame(R_individu_2016)
+DF_compl = pd.DataFrame(R_complement_individu_2016)
+DF_fusion = pd.merge(DF_indiv,DF_compl)
