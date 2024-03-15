@@ -17,14 +17,20 @@ print(R_typo_produit)
 
 
 
-DF_fusion = pd.merge(R_individu_2016,R_complement_individu_2016,on='INDIVIDUS_ID',how='left')
-print(type(DF_fusion.iloc[1]['DATE_CREATION_CARTE']))
-DF_fusion['date_naissance']=pd.to_datetime(DF_fusion[['DATE_NAISS_A','DATE_NAISS_M','DATE_NAISS_J']].astype(str).apply(lambda x: '-'.join(x),axis=1),format='%Y-%m-%d',errors='coerce')
-DF_fusion['AGE']=(datetime.datetime.strptime('2016-08-31','%Y-%m-%d')-DF_fusion['date_naissance'])//datetime.timedelta(days=365.2425)
-DF_fusion['Anciennete']=[(datetime.datetime.strptime('2016-08-31','%Y-%m-%d'))-datetime.datetime.strptime(i,'%d/%m/%Y') for i in DF_fusion['DATE_CREATION_CARTE']]
-print(DF_fusion)
-
+DF_INDIVIDU = pd.merge(R_individu_2016,R_complement_individu_2016,on='INDIVIDUS_ID',how='left')
+print(type(DF_INDIVIDU.iloc[1]['DATE_CREATION_CARTE']))
+DF_INDIVIDU['date_naissance']=pd.to_datetime(DF_INDIVIDU[['DATE_NAISS_A','DATE_NAISS_M','DATE_NAISS_J']].astype(str).apply(lambda x: '-'.join(x),axis=1),format='%Y-%m-%d',errors='coerce')
+DF_INDIVIDU['AGE']=(datetime.datetime.strptime('2016-08-31','%Y-%m-%d')-DF_INDIVIDU['date_naissance'])//datetime.timedelta(days=365.2425)
+DF_INDIVIDU['Anciennete']=[(datetime.datetime.strptime('2016-08-31','%Y-%m-%d'))-datetime.datetime.strptime(i,'%d/%m/%Y') for i in DF_INDIVIDU['DATE_CREATION_CARTE']]
+print(DF_INDIVIDU)
 print(R_tickets_2016.columns)
+print(R_tickets_2016.iloc[1])
 print(R_magasin.columns)
+print(R_magasin.iloc[1])
 print(R_referentiel.columns)
+print(R_referentiel.iloc[1])
 print(R_typo_produit.columns)
+print(R_typo_produit.iloc[1])
+
+df_matrice_travail= R_tickets_2016.merge(R_magasin,on='CODE_BOUTIQUE').merge(R_referentiel,on='EAN').merge(R_typo_produit,on='MODELE')
+print(df_matrice_travail)
