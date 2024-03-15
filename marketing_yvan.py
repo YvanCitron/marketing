@@ -17,7 +17,7 @@ print(R_typo_produit)
 
 
 
-DF_fusion = pd.merge(R_individu_2016,R_complement_individu_2016)
+DF_fusion = pd.merge(R_individu_2016,R_complement_individu_2016,on='INDIVIDUS_ID',how='left')
 
 DF_fusion['date_naissance']=pd.to_datetime(DF_fusion[['DATE_NAISS_A','DATE_NAISS_M','DATE_NAISS_J']].astype(str).apply(lambda x: '-'.join(x),axis=1),format='%Y-%m-%d',errors='coerce')
 DF_fusion['AGE']=(datetime.datetime.strptime('2016-08-31','%Y-%m-%d')-DF_fusion['date_naissance'])//datetime.timedelta(days=365.2425)
